@@ -4,9 +4,19 @@ const wppconnect = require('@wppconnect-team/wppconnect');
 class WPPConnectProvider extends WhatsAppProvider {
   constructor() {
     super();
+
     this.clientPromise = wppconnect.create({
       session: 'otp-session',
       headless: true,
+      puppeteerOptions: {
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-gpu'
+        ]
+      }
     }).then(client => {
       console.log('WPPConnect ready');
       return client;
@@ -16,7 +26,7 @@ class WPPConnectProvider extends WhatsAppProvider {
   async sendMessage(phone, message, otp) {
     const client = await this.clientPromise;
     const chatId = phone.replace(/\D/g, '') + '@c.us';
-    await client.sendText(chatId, message+otp);
+    await client.sendText(chatId, message + otp);
   }
 }
 
