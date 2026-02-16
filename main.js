@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const OTPService = require('./service/otpService');
 
-require('dotenv').config();
-const PORT = process.env.PORT || 3000;
+// require('dotenv').config();
+const PORT = 3000;
 const app = express();
 
 app.use(bodyParser.json());
