@@ -8,6 +8,7 @@ class WPPConnectProvider extends WhatsAppProvider {
     this.clientPromise = wppconnect.create({
       session: 'otp-session',
       headless: true,
+      autoClose: 0,
       puppeteerOptions: {
         executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
         args: [
